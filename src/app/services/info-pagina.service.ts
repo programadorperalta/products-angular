@@ -20,18 +20,23 @@ export class InfoPaginaService {
   private loadInfo(){
     
     this.http.get('assets/data/data-pagina.json').subscribe((resp:InfoPagina)=>{
-      this.cargada = true;
       this.info = resp;
+      this.cargada=true;
       //console.log( resp.email );
     });
     
   }
 
   private cargarEquipo(){
-    this.http.get('https://angular-html-9baaa-default-rtdb.firebaseio.com/equipo.json').subscribe((resp:any)=>{
-      this.equipo = resp;
+
+    return new Promise((resolve,reject)=>{
+      this.http.get('https://angular-html-9baaa-default-rtdb.firebaseio.com/equipo.json').subscribe((resp:any)=>{
+        this.equipo = resp;
+        this.cargada=false;      
       //console.log(this.equipo);
-    })
+        })
+    });
+    
   }
 
 
